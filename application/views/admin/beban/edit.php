@@ -112,6 +112,6 @@
 	</script>
 <script type="text/javascript">
   $(document).ready(function() {
-    $("#menu-keuangan").addClass("active");
+    $("#menu-beban").addClass("active");
 });
 </script>

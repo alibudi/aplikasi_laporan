@@ -26,6 +26,7 @@
                 </div>
             <?php } ?>
      <a href="<?php echo base_url('pemesanan/addPemesanan');?>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Tambah Data</a>
+<p class="btn btn-info btn-sm">Rp.<?php echo number_format($sub,2,',','.')?></p>
           <br><br>
             <div class="table-responsive">
        
@@ -37,6 +38,7 @@
                   <thead>
                       <tr>
                           <th>No</th>
+                          <th>No Pemesanan</th>
                           <th>Model</th>
                           <th>Keterangan</th>
                           <th>Jumlah</th>
@@ -53,12 +55,14 @@
                   ?>
                   <tr>
                     <td><?php echo $no++ ?></td>
+                    <td><?php echo $d->nomor?></td>
                     <td><?php echo $d->nama?></td>
                     <td><?php echo $d->keterangan?></td>
                     <td><?php echo $d->jumlah?></td>
-                    <td><?php echo number_format($d->harga,2,',','.')?></td>
-                      <td><?php echo number_format($d->total,2,',','.')?></td>
+                    <td>Rp. <?php echo number_format($d->harga,2,',','.')?></td>
+                      <td>Rp. <?php echo number_format($d->total,2,',','.')?></td>
                     <td style="text-align: center;">
+                        <a class='btn btn-info btn-xs' href="<?php echo base_url('pemesanan/lihatPesanan/'.$d->id);?>" class=""><i class="fa fa-eye"></i> </a>
                         <a class='btn btn-info btn-xs' href="<?php echo base_url('admin/editBeban/'.$d->id);?>" class=""><i class="glyphicon glyphicon-edit"></i> </a>
                         <a class='btn btn-danger btn-xs' href="#" onclick="functionDelete('<?php echo base_url('admin/deleteData/'.$d->id);?>')"><i class="glyphicon glyphicon-trash"></i> </a> 
                     </td>
@@ -71,6 +75,7 @@
                   <?php } ?>
             </tbody>
               </table>
+
   <!--             <?php foreach ($pemesanan as $sub){
   $total += $sub->total;
 }
@@ -119,7 +124,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $("#menu-beban").addClass("active");
+    $("#menu-pemesanan").addClass("active");
     $('#table').DataTable({
         responsive: true
     });

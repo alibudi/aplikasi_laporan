@@ -15,9 +15,9 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li id="menu-beranda"><a href="<?php echo base_url('admin')?>"><i class="fa fa-dashboard"></i> Beranda</a></li>
-        <li id="menu-beranda"><a href="<?php echo base_url('pemesanan')?>"><i class="fa fa-"></i> Pemesanan Barang</a></li>
+        <li id="menu-pemesanan"><a href="<?php echo base_url('pemesanan')?>"><i class="fa fa-file"></i> Pemesanan Barang</a></li>
         <li id="menu-keuangan"><a href="<?php echo base_url('admin/harian');?>"><i class="fa fa-book"></i> Operasional Harian</a></li>
-        <li id="menu-keuangan"><a href="<?php echo base_url('admin/beban');?>"><i class="fa fa-users"></i> Operasional Beban</a></li>
+        <li id="menu-beban"><a href="<?php echo base_url('admin/beban');?>"><i class="fa fa-users"></i> Operasional Beban</a></li>
         <li id="menu-keuangan"><a href="<?php echo base_url('admin/gaji');?>"><i class="fa fa-money"></i> Gaji</a></li>
           <li id="menu-keuangan"><a href="<?php echo base_url('admin/event');?>"><i class="fa fa-dollar"></i> Biaya Event</a></li>
         <li id="menu-keuangan"><a href="<?php echo base_url('admin/keuangan');?>"><i class="fa fa-book"></i> Pengajuan Biaya</a></li>

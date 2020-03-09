@@ -11,7 +11,7 @@ class PemesananModel extends CI_Model {
 
 	public function getDataById($id){
 		$this->db->where('id',$id);
-		$sql = $this->db->get('tbl_laporan');
+		$sql = $this->db->get('tbl_pemesanan');
 		return $sql->row();
 	}
  public function getAll()
@@ -50,4 +50,10 @@ class PemesananModel extends CI_Model {
 		}
 	}
 
+
+	public function dataTotal(){
+$this->db->select('SUM(total) as totall');
+$this->db->from('tbl_pemesanan');
+return $this->db->get()->row()->totall;
+	}
 }
