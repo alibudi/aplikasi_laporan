@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class KeuanganModel extends CI_Model {
 
 	public function getData(){
-		
+
 		$sql = $this->db->get('tbl_laporan');
 		return $sql->result();
 	}
@@ -119,12 +119,22 @@ public function getDataBebanId($id){
 	return $sql;
 	}
 
-	public function transfer($ammount, $from)
+		public function getSaldo($id){
+	$this->db->select('tbl_laporan.*');
+	$this->db->select('tbl_saldo.*');
+	$this->db->from('tbl_laporan');
+	$this->db->join('tbl_saldo','tbl_saldo.id=tbl_laporan.id');
+	$this->db->where('tbl_laporan.id',$id);
+	$sql = $this->db->get()->row();
+	return $sql;
+	}
+	public function transfer($query)
 	{
+		$query = $this->db->query('SELECT id, nilai FROM tbl_laporan');
 		$sender = 'UPDATE tbl_saldo SET saldo = saldo - ? WHERE id = ?';
 
 		$this->db->trans_start();
-		$this->db->query($sender, array($ammount, $from));
+		$this->db->query($sender, array($query));
 		$this->db->trans_complete();
 
 		if ($this->db->trans_start() === false) {
@@ -132,5 +142,21 @@ public function getDataBebanId($id){
 		} else {
 			echo 'commited';
 		}
+	}
+
+	public function get_tabung()
+	{
+		$this->db->where('type !=','pengeluaran');
+		$this->db->order_by('id', 'desc');
+		$sql = $this->db->get('tbl_laporan');
+			return $sql;
+	}
+
+	public function get_nominal($type='tabungan')
+	{
+		$this->db->select('SUM(nilai) as nilai');
+		$this->db->where('type', $type);
+		$sql = $this->db->get('tbl_laporan');
+			return $sql;
 	}
 }

@@ -44,10 +44,19 @@
               <div class="form-group">
                 <label for="kategori" class="col-sm-3 control-label">Nilai</label>
                 <div class="col-sm-9">
-                  <input type="text" id="nilai" name="nilai"  class="form-control" placeholder="Nilai">
+                  <input type="text" id="nilai" name="nilai"  class="form-control currency" placeholder="Nilai">
                   <?php echo form_error('nilai');?>
                 </div>
               </div>
+
+                <div class="form-group hidden">
+                <label for="kategori" class="col-sm-3 control-label">Type</label>
+                <div class="col-sm-9">
+                  <input type="text" id="nilai" name="type"  class="form-control currency" value="pengeluaran" placeholder="Nilai">
+                  <?php echo form_error('type');?>
+                </div>
+              </div>
+
                 <div class="form-group">
                 <label for="kategori" class="col-sm-3 control-label">Tanggal</label>
                 <div class="col-sm-9">

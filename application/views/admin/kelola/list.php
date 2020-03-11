@@ -27,7 +27,7 @@
             <?php } ?>
      <a href="<?php echo base_url('admin/addKelola');?>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Tambah Data</a>
       <a href="<?php echo base_url('admin/export');?>" class="btn btn-success btn-sm"><i class="fa fa-file"></i> Export</a> <br><br>
-      <a style="width: 100%;" href="<?php echo base_url('admin/export');?>" class="btn btn-info btn-sm"><i class="fa fa-money"></i> 300.000</a> 
+      <p class="btn btn-info btn-sm"><i class="fa fa-money"></i>Rp. <?= number_format($uang_masuk['nilai'] - $uang_keluar['nilai'])?></p> 
           <br><br>
             <div class="table-responsive">
              <?php if($keuangan!=null){?>
@@ -54,12 +54,13 @@
                   <tr>
                     <td><?php echo $no++ ?></td>
                     <td><?php echo $d->nama?></td>
-                    <td><?php echo $d->nilai?></td>
+                    <td><?php echo number_format($d->nilai) ?></td>
                     <td><?php echo $d->keterangan?></td>
                       <td> <img style="width: 100px;" src='<?= base_url().'uploads/'.$d->nota ?>'></td>
                     <td style="text-align: center;">
+                       <a class='btn btn-info btn-xs' href="<?php echo base_url('admin/lihatHarian/'.$d->id);?>" class=""><i class="fa fa-eye"></i> </a>
                         <a class='btn btn-info btn-xs' href="<?php echo base_url('admin/editKelola/'.$d->id);?>" class=""><i class="glyphicon glyphicon-edit"></i> </a>
-                        <a class='btn btn-danger btn-xs' href="#" onclick="functionDelete('<?php echo base_url('admin/deleteData/'.$d->id);?>')"><i class="glyphicon glyphicon-trash"></i> </a> 
+                        <a class='btn btn-danger btn-xs' href="#" onclick="functionDelete('<?php echo base_url('admin/deleteHarian/'.$d->id);?>')"><i class="glyphicon glyphicon-trash"></i> </a> 
                     </td>
                   </tr>
                   <?php }

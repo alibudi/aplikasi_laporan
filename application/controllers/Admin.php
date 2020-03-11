@@ -22,6 +22,8 @@ class Admin extends CI_Controller {
 	{
 		$data['title']	= 'Lapor IMB';
 		$data['keuangan']	= $this->keuanganModel->getData();
+		$data['uang_masuk']	= $this->keuanganModel->get_nominal()->row_array();
+		$data['uang_keluar']	= $this->keuanganModel->get_nominal('pengeluaran')->row_array();
 		$data['main']	= 'admin/kelola/list';
 		$this->load->view('template/template',$data);
 	}
@@ -60,16 +62,14 @@ class Admin extends CI_Controller {
 		 	$data = array(
                 'nama' 			    => $this->input->post('nama'),
                 'nilai' 	        => $nilai,
+                'type'				=> $this->input->post('type'),
                 'keterangan'    	=> $this->input->post('keterangan'),
                 'tgl' 		=> date('Y-m-d H:i:s'),
                 // 'total' 			=> $this->input->post('total'),
 			    'nota'    =>$file['file_name'],     
 					  );
 					  $this->keuanganModel->addData($data); //memasukan data ke database
-				// $id = $this->keuanganModel->getDataById($id);
-					  $nilai = 50;
-					  $id = 1;
-					  $this->keuanganModel->transfer($nilai, $id);
+					  // $this->keuanganModel->transfer($query);
 					  $this->session->set_flashdata('info', 'Berhasil Simpan Data!');
             redirect('admin/harian');
             // print_r ($data);
@@ -80,7 +80,7 @@ class Admin extends CI_Controller {
   {
     if($id==null){
       $this->session->set_flashdata('info', 'Gagal Edit Data!');
-      redirect('admin/keuangan','refresh');
+      redirect('admin/harian','refresh');
   } 
       $config = [
       'upload_path' => './uploads',
@@ -108,10 +108,40 @@ class Admin extends CI_Controller {
             );
             $this->keuanganModel->updateData($id,$data); //memasukan data ke database
             $this->session->set_flashdata('info', 'Berhasil Update Data!');
-            redirect('admin/keuangan');
+            redirect('admin/harian');
         }
   }
 
+	  public function lihatHarian($id=null)
+    {
+       
+      	if ($id==null) {
+        $this->session->set_flashdata('info','Id boleh kosong!');
+        redirect('admin/harian','refresh');
+      } else {
+      	$data['title']	= 'Lapor IMB';
+      	 $data['harian'] = $this->keuanganModel->getDataById($id);
+      	$data['main'] = 'admin/kelola/lihat';
+      	$this->load->view('template/template',$data);
+      }
+
+}
+
+public function deleteHarian($id=null)
+{
+	if ($id==ull) {
+		$this->session->set_flashdata('info', 'Gagal Hapus Data!');
+		redirect('admin/harian', 'refresh');
+	}
+	$cek = $this->keuanganModel->deleteData($id);
+	if ($cek) {
+		$this->session->set_flashdata('info', 'Sukses Hapus Data');
+		redirect('admin/harian' , 'refresh');
+	} else {
+		$this->session->set_flashdata('info', 'Gagal Hapus Data!');
+		redirect('admin/harian', 'refresh');
+	}
+}
   public function export()
   {
   		$data['keuangan']	= $this->keuanganModel->getData();

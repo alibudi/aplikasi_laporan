@@ -26,22 +26,22 @@ class Pemesanan extends CI_Controller {
 		// {
 			$this->form_validation->set_rules('nama', 'Username', 'trim|required|min_length[2]');
 			if ($this->form_validation->run() == TRUE) {
-				$nama = $this->input->post('nama');
-				$keterangan = $this->input->post('keterangan');
-				$jumlah = $this->input->post('jumlah');
-				$harga = $this->input->post('harga');
-				$nama2 = $this->input->post('nama2');
-				$jumlah2 = $this->input->post('jumlah2');
-				$harga2 = $this->input->post('harga2');
-				$nama3 = $this->input->post('nama3');
-				$jumlah3 = $this->input->post('jumlah3');
-				$harga3 = $this->input->post('harga3');
+				$nama = $this->input->post('nama'. TRUE);
+				$keterangan = $this->input->post('keterangan', TRUE);
+				$jumlah = $this->input->post('jumlah', TRUE);
+				$harga = $this->input->post('harga', TRUE);
+				$nama2 = $this->input->post('nama2', TRUE);
+				$jumlah2 = $this->input->post('jumlah2', TRUE);
+				$harga2 = $this->input->post('harga2', TRUE);
+				$nama3 = $this->input->post('nama3', TRUE);
+				$jumlah3 = $this->input->post('jumlah3', TRUE);
+				$harga3 = $this->input->post('harga3', TRUE);
 				date_default_timezone_set('Asia/Jakarta');
 			$tgl = date('Y-m-d H:i:s');
 				$data = array(
-					'nomor'	=> $this->input->post('nomor'),
-					'kepada'	=> $this->input->post('kepada'),
-					'alamat'	=> $this->input->post('alamat'),
+					'nomor'	=> $this->input->post('nomor', TRUE),
+					'kepada'	=> $this->input->post('kepada', TRUE),
+					'alamat'	=> $this->input->post('alamat', TRUE),
 					'nama'	=> $nama,
 					'tgl'	=> $tgl,
 					'keterangan'	=> $keterangan,
