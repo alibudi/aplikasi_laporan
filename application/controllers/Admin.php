@@ -40,6 +40,7 @@ class Admin extends CI_Controller {
 			  if (!$this->upload->do_upload('nota')) 
 			  {
 			  $data['error'] = $this->upload->display_errors();
+		
             $data['title']	= 'Lapor IMB';
        		 $data['main'] = 'admin/kelola/add';
         	$this->load->view('template/template', $data);
@@ -55,18 +56,22 @@ class Admin extends CI_Controller {
               $config['new_image']= './uploads/'.$file['file_name'];
               $this->load->library('image_lib', $config);
               $this->image_lib->resize();
-          
+          	$nilai = $this->input->post('nilai');
 		 	$data = array(
                 'nama' 			    => $this->input->post('nama'),
-                'nilai' 	        => $this->input->post('nilai'),
+                'nilai' 	        => $nilai,
                 'keterangan'    	=> $this->input->post('keterangan'),
                 'tgl' 		=> date('Y-m-d H:i:s'),
                 // 'total' 			=> $this->input->post('total'),
 			    'nota'    =>$file['file_name'],     
 					  );
 					  $this->keuanganModel->addData($data); //memasukan data ke database
+				// $id = $this->keuanganModel->getDataById($id);
+					  $nilai = 50;
+					  $id = 1;
+					  $this->keuanganModel->transfer($nilai, $id);
 					  $this->session->set_flashdata('info', 'Berhasil Simpan Data!');
-            redirect('admin/keuangan');
+            redirect('admin/harian');
             // print_r ($data);
             // echo $data;
 			  }
@@ -384,5 +389,33 @@ public function deleteData($id=null)
 				$this->load->view('template/template', $data);
 			}
 		
+	}
+
+	public function saldo()
+	{
+			$this->form_validation->set_rules('nilai', 'Username', 'trim|required|min_length[2]');
+			if ($this->form_validation->run() == TRUE) {
+				$nilai = $this->input->post('nilai');
+				$data = array(
+		
+					'nilai'	=> $nilai
+										);
+				$sql = $this->keuanganModel->addData($data);
+				if($sql){
+					$this->session->set_flashdata('info', 'Berhasil Tambah Data!');
+					redirect(base_url("harian"));
+				} else{
+					$this->session->set_flashdata('info', 'Gagal Tambah Data!');
+					redirect(base_url("harian"));
+				}
+			} else {
+				print_r($data);
+				echo $data;
+				// $data['title']	= 'Lapor IMB';
+				// $data['main']			= 'admin/kelola/add';
+				// $this->load->view('template/template', $data);
+			}
+	
+		$this->keuanganModel->transfer($nilai);
 	}
 }

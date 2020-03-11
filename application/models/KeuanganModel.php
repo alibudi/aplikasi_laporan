@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class KeuanganModel extends CI_Model {
 
 	public function getData(){
+		
 		$sql = $this->db->get('tbl_laporan');
 		return $sql->result();
 	}
@@ -116,5 +117,20 @@ public function getDataBebanId($id){
 	$this->db->where('tbl_beban.id',$id);
 	$sql = $this->db->get()->row();
 	return $sql;
+	}
+
+	public function transfer($ammount, $from)
+	{
+		$sender = 'UPDATE tbl_saldo SET saldo = saldo - ? WHERE id = ?';
+
+		$this->db->trans_start();
+		$this->db->query($sender, array($ammount, $from));
+		$this->db->trans_complete();
+
+		if ($this->db->trans_start() === false) {
+			echo 'rolleback';
+		} else {
+			echo 'commited';
+		}
 	}
 }
